@@ -17,8 +17,15 @@ However, knowing this seed means that the random numbers can be predicted and th
 The random seed can be set with the function: set.seed(n) from the base R package. Sharing the value, n, used in set.seed(n) allows random number generation to be reproduced.
 
 **c.**
+Please see the script and part d. for the edits. 
 
 **d.**
+Below are images of the latest commit in the comparison view.
+<img width="1434" alt="Screenshot 2023-12-06 at 19 15 15" src="https://github.com/pepperepperepper/reproducible-research_homework/assets/150150609/03ebbd7a-f24a-4f48-9808-7cdb25413c23">
+<img width="1434" alt="Screenshot 2023-12-06 at 19 15 38" src="https://github.com/pepperepperepper/reproducible-research_homework/assets/150150609/6aa04b9d-7e0f-426a-8e63-98c7c63f98d3">
+
+
+
 
 **References**
 
