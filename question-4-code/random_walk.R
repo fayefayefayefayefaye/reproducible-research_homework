@@ -4,6 +4,7 @@
 library(ggplot2)
 library(gridExtra)
 
+# This is code to make the random_walk function
 random_walk  <- function (n_steps) {
   
   df <- data.frame(x = rep(NA, n_steps), y = rep(NA, n_steps), time = 1:n_steps)
@@ -28,8 +29,11 @@ random_walk  <- function (n_steps) {
   
 }
 
+# Applying the random_walk function (for 500 steps)
+set.seed(888) # use the set.seed() function to set the random seed
 data1 <- random_walk(500)
 
+# Plot data1 in 2D
 plot1 <- ggplot(aes(x = x, y = y), data = data1) +
   
   geom_path(aes(colour = time)) +
@@ -40,8 +44,12 @@ plot1 <- ggplot(aes(x = x, y = y), data = data1) +
   
   ylab("y-coordinate")
 
-data2 <- random_walk(500)
+# Applying the random_walk function again
+set.seed(888) # this has to be done twice because the .random.seed changes after
+  # random_walk function is run
+data2 <- random_walk(500) 
 
+# Plot data2 in 2D
 plot2 <- ggplot(aes(x = x, y = y), data = data2) +
   
   geom_path(aes(colour = time)) +
@@ -52,4 +60,5 @@ plot2 <- ggplot(aes(x = x, y = y), data = data2) +
   
   ylab("y-coordinate")
 
+# Combine the plots for data1 and data2 on the same figure
 grid.arrange(plot1, plot2, ncol=2)
