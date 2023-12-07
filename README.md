@@ -30,7 +30,86 @@ Below are images of the latest commit in the comparison view.
 
 ***
 
-### Question 5
+### Question 5  
+
+**a.**  
+The dsDNA virus data has 33 rows and 13 columns.
+
+The column names (before cleaning and converting to snake case) are: “Family”, “Genus”, “Type.species”, “GenBank.accession.no.”, “Envelope”, “Virion.type”, “T”, “Virion.diameter..nm.”, “Virion.length..nm.”, “Virion.volume..nm.nm.nm.”, “Molecule”, “Genome.length..kb.”, and “Protein.no.”
+
+**b.**  
+A log transformation can be performed on both “genome_length_kb” and “virion_volume_nm_nm_nm”. A log transformation is applicable here because both genome lengths and virion volume span several magnitudes (i.e. is exponential). Converting to a log scale linearises the relationship. As a result, the values for genome length range from roughly 1.5 to 8 and values for virion volume ranges from roughly 10 to 18. The linear relationship assumption of linear regression is now met and a linear model can be fitted.
+
+The log() function carries out the log transformation and is applied to the whole column of data (dsvirus$genome_length_kb and dsvirus$virion_volume_nm_nm_nm). 
+
+**c.**  
+
+
+
+**d.**  
+Please find below the code that reproduces the figure below (from setting up the workspace -> cleaning -> transforming -> plotting).  
+```{r reproduce-figure-code}
+# Install and load packages
+install.packages(c("janitor", "ggplot2", "dplyr", "magrittr"))
+library(janitor)
+library(ggplot2) 
+library(dplyr)
+library(magrittr)
+
+# Load in the data
+dsvirus <- read.csv("Cui_etal2014.csv")
+
+# View the data
+names(dsvirus) # view names of the columns
+head(dsvirus) # view first few rows of the data
+
+# Clean the data
+clean_dsvirus <- dsvirus %>%
+  clean_names() %>% # convert to lower case and snake case
+  select(c("genome_length_kb", "virion_volume_nm_nm_nm")) # select only the relevant columns
+
+# Log transform the data to linearise the relationship
+clean_dsvirus$log_genome_length <- log(clean_dsvirus$genome_length_kb)
+clean_dsvirus$log_virion_volume <- log(clean_dsvirus$virion_volume_nm_nm_nm)
+
+# Plot the data
+plot_dsvirus <- ggplot(clean_dsvirus, aes(x = log_genome_length, y = log_virion_volume)) +
+    geom_point(color = "black",
+               size = 2,
+               alpha = 0.8) +
+    geom_smooth(method = "lm", se = TRUE, color = "blue") +
+    labs(x = "log[Genome length(kb)])",
+         y = "log[Virion volume (nm³)]",) +
+    theme_bw()
+print(plot_dsvirus)
+
+```
+
+**e.**
+The allometric equation is:
+
+```math
+\begin{equation}
+V = 1181.807 * L^{1.515228}
+\end{equation}
+```
+
+For a 300 kb dsDNA virus, L = 300.  
+Therefore, by we can sub L = 300 into the equation:  
+
+```math
+\begin{equation}
+V = 1181.807 * 300^{1.515228}
+\end{equation}
+```
+
+```math
+\begin{equation}
+V = 6698076
+\end{equation}
+```  
+
+Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076nm³**.
 
 **References**
 
