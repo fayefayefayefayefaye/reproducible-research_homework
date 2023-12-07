@@ -1,5 +1,8 @@
 # Reproducible research: version control and R
 
+### Questions 1-3
+https://github.com/pepperepperepper/logistic_growth
+
 ### Question 4
 
 **a.**  
@@ -58,7 +61,7 @@ This has a p-value of 2.28e-10.
 slope = 7.074800
 \end{equation}
 ```
-This has a p-value of 6.44e-10.
+This has a p-value of 6.44e-10. 
 
 The p-values for the y-intercept and slope are both vanishingly small and, at a 0.05 significance level, we can therefore conclude that these results are statistically significant.
 
@@ -205,6 +208,8 @@ V = 6698076
 ```  
 
 Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076nm³**.
+
+### Bonus
 
 **References**
 
