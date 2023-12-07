@@ -43,8 +43,103 @@ A log transformation can be performed on both “genome_length_kb” and “viri
 The log() function carries out the log transformation and is applied to the whole column of data (dsvirus$genome_length_kb and dsvirus$virion_volume_nm_nm_nm). 
 
 **c.**  
+After linearising the relationship by taking logs, a linear model can be fitted using the lm() function. Using summary() prints the results of the model and coef() shows the y-intercept and the slope of the line.  
 
+The results of the model:
+```math
+\begin{equation}
+y-intercept = 7.074800
+\end{equation}
+```
+This has a p-value of 2.28e-10.
 
+```math
+\begin{equation}
+slope = 7.074800
+\end{equation}
+```
+This has a p-value of 6.44e-10.
+
+The p-values for the y-intercept and slope are both vanishingly small and, at a 0.05 significance level, we can therefore conclude that these results are statistically significant.
+
+The equation of the line is therefore:
+```math
+\begin{equation}
+V = 7.074800 + 1.515228L
+\end{equation}
+```
+Where V = virion volume and L = length of genome.
+
+But we took logs of both genome length and virion volume, so the equation is:
+
+```math
+\begin{equation}
+log(V) = 7.074800 + 1.515228*log(L)
+\end{equation}
+```
+
+Both sides of the equation need to be exponentiated to reverse the logs:
+```math
+\begin{equation}
+e^{log(V)} = e^{7.074800 + 1.515228*log(L)}
+\end{equation}
+```
+
+This simplifies to:
+```math
+\begin{equation}
+V = e^{7.074800 + 1.515228*log(L)}
+\end{equation}
+```
+
+Due to the power rule, this can be rearranged to:
+```math
+\begin{equation}
+V = e^{7.074800} + e^{1.515228*log(L)}
+\end{equation}
+```
+
+And finally simplified again:
+```math
+\begin{equation}
+V = e^{7.074800} + L^{1.515228}
+\end{equation}
+```
+
+The y-intercept can be calculated:
+```math
+\begin{equation}
+V = 1181.807 * L^{1.515228}
+\end{equation}
+```
+
+Therefore,
+
+```math
+\begin{equation}
+β = 1181.807
+\end{equation}
+```
+```math
+\begin{equation}
+α = 1.515228
+\end{equation}
+```
+
+Where α = allometric exponent, and β = scaling factor.  
+
+The values found in table 2 for dsDNA viruses were:
+```math
+\begin{equation}
+α = 1.52
+\end{equation}
+```
+```math
+\begin{equation}
+β = 1182
+\end{equation}
+```
+This is consistent with the results of the data analysis; the results in the paper are rounded to 2 d.p for α and to the nearest integer for β.
 
 **d.**  
 Please find below the code that reproduces the figure below (from setting up the workspace -> cleaning -> transforming -> plotting).  
@@ -86,7 +181,7 @@ print(plot_dsvirus)
 ```
 
 **e.**
-The allometric equation is:
+The equation is:
 
 ```math
 \begin{equation}
