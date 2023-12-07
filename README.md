@@ -1,5 +1,8 @@
 # Reproducible research: version control and R
 
+### Questions 1-3
+https://github.com/pepperepperepper/logistic_growth
+
 ### Question 4
 
 **a.**  
@@ -7,10 +10,10 @@ The .R script provided contains the code to write the random_walk() function. Th
 
 The walks are visualised graphically by plotting both data1 and data2. The grid.arrange() function places the two graphical visualisations of the two walks next to each other. The graphs show the walks in two dimensions (in a grid with a x and y-axis). The direction of the path is indicated by the colour gradient; dark blue represents when t is small/the earlier steps, and light blue represents when t is larger/the later steps. Therefore, the path moves from dark blue to light blue.
 
-The random_walk() function produces a new data frame each time, i.e. re-running the random_walk(500) makes a different data1 and data2 and therefore different paths each time. Executing the whole code repeatedly creates new, random pairs of graphs each time.
+The random_walk() function produces a new data frame each time, i.e. re-running the random_walk(500) makes a different data1 and data2 and therefore different paths each time. Executing the whole code repeatedly creates new, random pairs of graphs each time.  
 
 **b.**  
-A random seed is the starting point for generating random numbers in functions in R. When R generates random numbers, the numbers are not truly random but instead are pseudorandom numbers. It is pseudorandom because the algorithm that is used to generate the randomness uses a ‘seed’ to initialise it. The seed is randomly selected and therefore a random outcome is produced. This is stored in .Random.seed in the global environment and is a vector of integers (Random-R documentation, n.d). 
+A random seed is the starting point for generating random numbers in R. When R generates random numbers, the numbers are not truly random but instead are pseudorandom numbers. It is pseudorandom because the algorithm that is used to generate the randomness uses a ‘seed’ to initialise it. The seed is randomly selected and therefore a random outcome is produced. This is stored in .Random.seed in the global environment and is a vector of integers (Random-R documentation, n.d). 
 
 However, knowing this seed means that the random numbers can be predicted and therefore reproduced. Setting the same random seed means that the same sequence of random numbers is generated each time. Crucially, setting seed is important for reproducibility because the exact same results–despite being random–are produced each time. Therefore, the code can be run by another person and they can achieve the exact same outcome. Setting a random seed is important for other functions, e.g. debugging a code (setting a seed would make it easier to identify errors by removing the element of randomness) (r-coder.com, n.d).
 
@@ -30,15 +33,219 @@ Below are images of the latest commit in the comparison view.
 
 ***
 
-### Question 5
+### Question 5  
 
-**References**
+**a.**  
+The dsDNA virus data has 33 rows and 13 columns.
+
+The column names (before cleaning and converting to snake case) are: “Family”, “Genus”, “Type.species”, “GenBank.accession.no.”, “Envelope”, “Virion.type”, “T”, “Virion.diameter..nm.”, “Virion.length..nm.”, “Virion.volume..nm.nm.nm.”, “Molecule”, “Genome.length..kb.”, and “Protein.no.”
+
+**b.**  
+A log transformation can be performed on both “genome_length_kb” and “virion_volume_nm_nm_nm”. A log transformation is applicable here because both genome lengths and virion volume span several magnitudes (i.e. is exponential). Converting to a log scale linearises the relationship. As a result, the values for genome length range from roughly 1.5 to 8 and values for virion volume ranges from roughly 10 to 18. The linear relationship assumption of linear regression is now met and a linear model can be fitted.
+
+The log() function carries out the log transformation and is applied to the whole column of data (dsvirus$genome_length_kb and dsvirus$virion_volume_nm_nm_nm). 
+
+**c.**  
+After linearising the relationship by taking logs, a linear model can be fitted using the lm() function. Using summary() prints the results of the model and coef() shows the y-intercept and the slope of the line.  
+
+The results of the model:
+```math
+\begin{equation}
+y-intercept = 7.074800
+\end{equation}
+```
+This has a p-value of 2.28e-10.
+
+```math
+\begin{equation}
+slope = 7.074800
+\end{equation}
+```
+This has a p-value of 6.44e-10. 
+
+The p-values for the y-intercept and slope are both vanishingly small and, at a 0.05 significance level, we can therefore conclude that these results are statistically significant.
+
+The equation of the line is therefore:
+```math
+\begin{equation}
+V = 7.074800 + 1.515228L
+\end{equation}
+```
+Where V = virion volume and L = length of genome.
+
+But we took logs of both genome length and virion volume, so the equation is:
+
+```math
+\begin{equation}
+log(V) = 7.074800 + 1.515228*log(L)
+\end{equation}
+```
+
+Both sides of the equation need to be exponentiated to reverse the logs:
+```math
+\begin{equation}
+e^{log(V)} = e^{7.074800 + 1.515228*log(L)}
+\end{equation}
+```
+
+This simplifies to:
+```math
+\begin{equation}
+V = e^{7.074800 + 1.515228*log(L)}
+\end{equation}
+```
+
+Due to the power rule, this can be rearranged to:
+```math
+\begin{equation}
+V = e^{7.074800} + e^{1.515228*log(L)}
+\end{equation}
+```
+
+And finally simplified again:
+```math
+\begin{equation}
+V = e^{7.074800} + L^{1.515228}
+\end{equation}
+```
+
+The y-intercept can be calculated:
+```math
+\begin{equation}
+V = 1181.807 * L^{1.515228}
+\end{equation}
+```
+
+Therefore,
+
+```math
+\begin{equation}
+β = 1181.807
+\end{equation}
+```
+```math
+\begin{equation}
+α = 1.515228
+\end{equation}
+```
+
+Where α = allometric exponent, and β = scaling factor.  
+
+The values found in table 2 for dsDNA viruses were:
+```math
+\begin{equation}
+α = 1.52
+\end{equation}
+```
+```math
+\begin{equation}
+β = 1182
+\end{equation}
+```
+This is consistent with the results of the data analysis; the results in the paper are rounded to 2 d.p for α and to the nearest integer for β.
+
+**d.**  
+Please find below the code that reproduces the figure below (from setting up the workspace -> cleaning -> transforming -> plotting).  
+```{r reproduce-figure-code}
+# Install and load packages
+install.packages(c("janitor", "ggplot2", "dplyr", "magrittr"))
+library(janitor)
+library(ggplot2) 
+library(dplyr)
+library(magrittr)
+
+# Load in the data
+dsvirus <- read.csv("Cui_etal2014.csv")
+
+# View the data
+names(dsvirus) # view names of the columns
+head(dsvirus) # view first few rows of the data
+
+# Clean the data
+clean_dsvirus <- dsvirus %>%
+  clean_names() %>% # convert to lower case and snake case
+  select(c("genome_length_kb", "virion_volume_nm_nm_nm")) # select only the relevant columns
+
+# Log transform the data to linearise the relationship
+clean_dsvirus$log_genome_length <- log(clean_dsvirus$genome_length_kb)
+clean_dsvirus$log_virion_volume <- log(clean_dsvirus$virion_volume_nm_nm_nm)
+
+# Plot the data
+plot_dsvirus <- ggplot(clean_dsvirus, aes(x = log_genome_length, y = log_virion_volume)) +
+    geom_point(color = "black",
+               size = 2,
+               alpha = 0.8) +
+    geom_smooth(method = "lm", se = TRUE, color = "blue") +
+    labs(x = "log[Genome length(kb)])",
+         y = "log[Virion volume (nm³)]",) +
+    theme_bw()
+print(plot_dsvirus)
+
+```
+
+**e.**
+The equation is:
+
+```math
+\begin{equation}
+V = 1181.807 * L^{1.515228}
+\end{equation}
+```
+
+For a 300 kb dsDNA virus, L = 300.  
+Therefore, by we can sub L = 300 into the equation:  
+
+```math
+\begin{equation}
+V = 1181.807 * 300^{1.515228}
+\end{equation}
+```
+
+```math
+\begin{equation}
+V = 6698076
+\end{equation}
+```  
+
+Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076 nm³**.
+
+### Bonus question
+In scientific research, reproducibility is when the results from an analysis can be generated again if provided with the same data. Reproducible results are important because it confirms the reliability of research and widens the impact. Achieving reproducible results requires transparency, accessibility, and sufficient communication of the original data and research methods.  
+
+Though often used interchangeably, replicability is distinct from reproducibility. Replicability is when similar studies aiming to answer the same scientific question all arrive at consistent conclusions from their individual datasets. Replicable results therefore increase the confidence in a new scientific discovery. Achieving replicable results requires collecting new data and using similar methods to similar studies.  
+
+There are widespread issues with reproducibility and replicability in scientific research. This is particularly true for contemporary science due to a number of factors such as: many people conducting science globally, more academic fields and disciplines and therefore more published literature and information, more data due to advances in computational techniques, and pressure to publish findings to obtain prestige, grants to continue research, or better academic positions (National Academies of Sciences, 2019). These issues were highlighted by scientists themselves in a survey given to researchers conducted by Nature on reproducibility (Baker, 2016). These factors can lead to e.g. selective reporting or poor experimental design, which impacts reproducibility and replicability of results.  
+
+Several solutions have been suggested to reduce the number of irreproducible and non-replicable results. These include increased transparency in reporting of methods and materials and other variables in research, clearer descriptions of analysis of data. Achieving this would increase confidence in science and enable further progress and more discoveries to be made.  
+
+Git is a version control system that increases the efficiency of coding projects and makes collaborating on these projects much easier. It tracks and manages changes to the code and therefore allows versions to be stored, reduces the changes of a bug damaging the project, and allows tasks to be split among collaborators. GitHub is a cloud-based platform that hosts git projects and is a simple platform that is fairly easy to navigate. These technologies are especially important because research is increasingly dependent on using code to analyse data, and therefore additional measures need to be taken to ensure that analysis and methodology is sufficiently communicated and made accessible (Braga et al., 2023).  
+
+Git tracks changes: therefore it stores information about the analysis and thus increases the reproducibility of later research and also replicability if similar methods are used for different experiments. Git also allows you to make ‘branches’ of your code so progress can be made without overwriting the previous data and allows multiple attempts and mistakes before committing. This enhances the reproducibility of research because only the right code is retained at the end (and it not cluttered and complicated by multiple attempts) for analysis again in the future or by others.  
+
+GitHub stores the project and all its files and information on a remote server and can be made accessible to collaborators and also the wider scientific community. Therefore, it enhances the accessibility and therefore reproducibility of research. GitHub allows you to add a license to communicate what is allowed to be done to the data. It also allows you to store information about the packages used in the analysis. GitHub also acts as a social platform for scientists, which increases accessibility and discussion of findings and learning materials. Sharing public repositories on GitHub is convenient as it only requires a URL link.  
+
+There are also limitations to using git and GitHub. Git can seem difficult to learn and requires all parties to understand how it works to utilise it properly. Technology also changes rapidly, so software changes made to git and GitHub and also the software and packages used in the analysis need to be regularly kept up to date for code to run smoothly (Alston and Rick, 2021). GitHub also requires an internet connection so cannot be run in remote locations without access. Git and GitHub are useful tools for code but need to work in conjunction with other services to enhance the reproducibility of all aspects of research. For example, https://www.protocols.io/ provides a service to share and edit reproducible methods, and includes computational workflows but also laboratory protocols and checklists.   
+
+***
+
+### **References**
+
+Alston, J. M. & Rick, J. A. (2021) A Beginner’s Guide to Conducting Reproducible Research. [Online]
+
+Baker, M. (2016) 1,500 scientists lift the lid on reproducibility. Nature (London). [Online] 533 (7604), 452–454.
+
+Braga, P. H. P. et al. (2023) Not just for programmers: How GitHub can accelerate collaborative and reproducible research in ecology and evolution. [Online]
+
+Cui, J. et al. (2014) An allometric relationship between the genome length and virion volume of viruses. Journal of virology. [Online] 88 (11), 6403–6410.
+
+National Academies of Sciences, E. (2019) Reproducibility and replicability in science. Washington, District of Columbia: National Academies Press.
 
 r-coder.com, 'Setting the Seed in R for Reproducibility'. 
 Available at: https://r-coder.com/set-seed-r/ (Accessed: 6 December 2023).
 
 R Project for Statistical Computing, 'Random - R Documentation'. Available at: https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html (Accessed: 6 December 2023).
 
+***
 
 ## Instructions
 
