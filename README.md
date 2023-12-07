@@ -10,10 +10,10 @@ The .R script provided contains the code to write the random_walk() function. Th
 
 The walks are visualised graphically by plotting both data1 and data2. The grid.arrange() function places the two graphical visualisations of the two walks next to each other. The graphs show the walks in two dimensions (in a grid with a x and y-axis). The direction of the path is indicated by the colour gradient; dark blue represents when t is small/the earlier steps, and light blue represents when t is larger/the later steps. Therefore, the path moves from dark blue to light blue.
 
-The random_walk() function produces a new data frame each time, i.e. re-running the random_walk(500) makes a different data1 and data2 and therefore different paths each time. Executing the whole code repeatedly creates new, random pairs of graphs each time.
+The random_walk() function produces a new data frame each time, i.e. re-running the random_walk(500) makes a different data1 and data2 and therefore different paths each time. Executing the whole code repeatedly creates new, random pairs of graphs each time.  
 
 **b.**  
-A random seed is the starting point for generating random numbers in functions in R. When R generates random numbers, the numbers are not truly random but instead are pseudorandom numbers. It is pseudorandom because the algorithm that is used to generate the randomness uses a ‘seed’ to initialise it. The seed is randomly selected and therefore a random outcome is produced. This is stored in .Random.seed in the global environment and is a vector of integers (Random-R documentation, n.d). 
+A random seed is the starting point for generating random numbers in R. When R generates random numbers, the numbers are not truly random but instead are pseudorandom numbers. It is pseudorandom because the algorithm that is used to generate the randomness uses a ‘seed’ to initialise it. The seed is randomly selected and therefore a random outcome is produced. This is stored in .Random.seed in the global environment and is a vector of integers (Random-R documentation, n.d). 
 
 However, knowing this seed means that the random numbers can be predicted and therefore reproduced. Setting the same random seed means that the same sequence of random numbers is generated each time. Crucially, setting seed is important for reproducibility because the exact same results–despite being random–are produced each time. Therefore, the code can be run by another person and they can achieve the exact same outcome. Setting a random seed is important for other functions, e.g. debugging a code (setting a seed would make it easier to identify errors by removing the element of randomness) (r-coder.com, n.d).
 
@@ -207,7 +207,7 @@ V = 6698076
 \end{equation}
 ```  
 
-Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076nm³**.
+Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076 nm³**.
 
 ### Bonus question
 In scientific research, reproducibility is when the results from an analysis can be generated again if provided with the same data. Reproducible results are important because it confirms the reliability of research and widens the impact. Achieving reproducible results requires transparency, accessibility, and sufficient communication of the original data and research methods.  
