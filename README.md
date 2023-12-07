@@ -230,11 +230,22 @@ There are also limitations to using git and GitHub. Git can seem difficult to le
 
 ### **References**
 
+Alston, J. M. & Rick, J. A. (2021) A Beginner’s Guide to Conducting Reproducible Research. [Online]
+
+Baker, M. (2016) 1,500 scientists lift the lid on reproducibility. Nature (London). [Online] 533 (7604), 452–454.
+
+Braga, P. H. P. et al. (2023) Not just for programmers: How GitHub can accelerate collaborative and reproducible research in ecology and evolution. [Online]
+
+Cui, J. et al. (2014) An allometric relationship between the genome length and virion volume of viruses. Journal of virology. [Online] 88 (11), 6403–6410.
+
+National Academies of Sciences, E. (2019) Reproducibility and replicability in science. Washington, District of Columbia: National Academies Press.
+
 r-coder.com, 'Setting the Seed in R for Reproducibility'. 
 Available at: https://r-coder.com/set-seed-r/ (Accessed: 6 December 2023).
 
 R Project for Statistical Computing, 'Random - R Documentation'. Available at: https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html (Accessed: 6 December 2023).
 
+***
 
 ## Instructions
 
