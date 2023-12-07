@@ -209,9 +209,26 @@ V = 6698076
 
 Therefore, the estimated volume, V for a 300 kb dsDNA virus is **6,698,076nm³**.
 
-### Bonus
+### Bonus question
+In scientific research, reproducibility is when the results from an analysis can be generated again if provided with the same data. Reproducible results are important because it confirms the reliability of research and widens the impact. Achieving reproducible results requires transparency, accessibility, and sufficient communication of the original data and research methods.  
 
-**References**
+Though often used interchangeably, replicability is distinct from reproducibility. Replicability is when similar studies aiming to answer the same scientific question all arrive at consistent conclusions from their individual datasets. Replicable results therefore increase the confidence in a new scientific discovery. Achieving replicable results requires collecting new data and using similar methods to similar studies.  
+
+There are widespread issues with reproducibility and replicability in scientific research. This is particularly true for contemporary science due to a number of factors such as: many people conducting science globally, more academic fields and disciplines and therefore more published literature and information, more data due to advances in computational techniques, and pressure to publish findings to obtain prestige, grants to continue research, or better academic positions (National Academies of Sciences, 2019). These issues were highlighted by scientists themselves in a survey given to researchers conducted by Nature on reproducibility (Baker, 2016). These factors can lead to e.g. selective reporting or poor experimental design, which impacts reproducibility and replicability of results.  
+
+Several solutions have been suggested to reduce the number of irreproducible and non-replicable results. These include increased transparency in reporting of methods and materials and other variables in research, clearer descriptions of analysis of data. Achieving this would increase confidence in science and enable further progress and more discoveries to be made.  
+
+Git is a version control system that increases the efficiency of coding projects and makes collaborating on these projects much easier. It tracks and manages changes to the code and therefore allows versions to be stored, reduces the changes of a bug damaging the project, and allows tasks to be split among collaborators. GitHub is a cloud-based platform that hosts git projects and is a simple platform that is fairly easy to navigate. These technologies are especially important because research is increasingly dependent on using code to analyse data, and therefore additional measures need to be taken to ensure that analysis and methodology is sufficiently communicated and made accessible (Braga et al., 2023).  
+
+Git tracks changes: therefore it stores information about the analysis and thus increases the reproducibility of later research and also replicability if similar methods are used for different experiments. Git also allows you to make ‘branches’ of your code so progress can be made without overwriting the previous data and allows multiple attempts and mistakes before committing. This enhances the reproducibility of research because only the right code is retained at the end (and it not cluttered and complicated by multiple attempts) for analysis again in the future or by others.  
+
+GitHub stores the project and all its files and information on a remote server and can be made accessible to collaborators and also the wider scientific community. Therefore, it enhances the accessibility and therefore reproducibility of research. GitHub allows you to add a license to communicate what is allowed to be done to the data. It also allows you to store information about the packages used in the analysis. GitHub also acts as a social platform for scientists, which increases accessibility and discussion of findings and learning materials. Sharing public repositories on GitHub is convenient as it only requires a URL link.  
+
+There are also limitations to using git and GitHub. Git can seem difficult to learn and requires all parties to understand how it works to utilise it properly. Technology also changes rapidly, so software changes made to git and GitHub and also the software and packages used in the analysis need to be regularly kept up to date for code to run smoothly (Alston and Rick, 2021). GitHub also requires an internet connection so cannot be run in remote locations without access. Git and GitHub are useful tools for code but need to work in conjunction with other services to enhance the reproducibility of all aspects of research. For example, https://www.protocols.io/ provides a service to share and edit reproducible methods, and includes computational workflows but also laboratory protocols and checklists.   
+
+***
+
+### **References**
 
 r-coder.com, 'Setting the Seed in R for Reproducibility'. 
 Available at: https://r-coder.com/set-seed-r/ (Accessed: 6 December 2023).
