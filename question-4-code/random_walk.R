@@ -1,5 +1,5 @@
-#install.packages("ggplot2")
-#install.packages("gridExtra")
+install.packages("ggplot2")
+install.packages("gridExtra")
 
 library(ggplot2)
 library(gridExtra)
@@ -62,3 +62,7 @@ plot2 <- ggplot(aes(x = x, y = y), data = data2) +
 
 # Combine the plots for data1 and data2 on the same figure
 grid.arrange(plot1, plot2, ncol=2)
+
+sink(file = "package-versions.txt")
+sessionInfo()
+sink()

@@ -1,0 +1,33 @@
+R version 4.3.2 (2023-10-31)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/atlas/libblas.so.3.10.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/atlas/liblapack.so.3.10.3;  LAPACK version 3.9.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] gridExtra_2.3  magrittr_2.0.3 dplyr_1.1.4    ggplot2_3.4.4 
+[5] janitor_2.2.0  readr_2.1.4   
+
+loaded via a namespace (and not attached):
+ [1] vctrs_0.6.5      cli_3.6.1        rlang_1.1.2      stringi_1.8.2   
+ [5] generics_0.1.3   labeling_0.4.3   glue_1.6.2       colorspace_2.1-0
+ [9] hms_1.1.3        scales_1.3.0     fansi_1.0.5      grid_4.3.2      
+[13] munsell_0.5.0    snakecase_0.11.1 tibble_3.2.1     tzdb_0.4.0      
+[17] lifecycle_1.0.4  stringr_1.5.1    compiler_4.3.2   timechange_0.2.0
+[21] pkgconfig_2.0.3  farver_2.1.1     R6_2.5.1         tidyselect_1.2.0
+[25] utf8_1.2.4       pillar_1.9.0     withr_2.5.2      tools_4.3.2     
+[29] gtable_0.3.4     lubridate_1.9.3 
